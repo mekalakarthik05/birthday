@@ -118,8 +118,8 @@ export default function BirthdayCelebration() {
       >
         <div className="text-center">
           <p className="text-lg text-purple-700 mb-4">
-          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday Kiran K²
-😇🤩
+          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday Sai Teja
+😇🤩 #pulloda
           </p> {/* Change this name accordingly */}
           <div className="flex justify-center items-center gap-2">
             <p className="text-pink-600 font-medium">Let’s always stay like this... together, forever 🫶 <br /> Your one and only,
