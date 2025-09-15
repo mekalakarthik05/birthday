@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Countdown from "@/components/countdown"
 import BirthdayCelebration from "@/components/birthday-celebration"
-import Confetti from "react-confetti"   // ✅ use react-confetti package
+import Confetti from "react-confetti"   // ✅ react-confetti package
 import FloatingHearts from "@/components/floating-hearts"
 import Loader from "@/components/Loader"
 import { MoveRight, PartyPopper } from "lucide-react"
@@ -14,10 +14,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [showForYouBtn, setShowForYouBtn] = useState(false)
   const [showConfetti, setShowConfetti] = useState(true)
-  const birthdayDate = new Date("2025-09-15T20:05:00+05:30")// Change this date accordingly
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [bubbles, setBubbles] = useState([])   // ✅ JS-safe state
+  const birthdayDate = new Date("2025-09-15T20:05:00+05:30") // 🎂 Change this date
+  const audioRef = useRef(null) // ✅ fixed
 
-  // Loading state
+  // Loading animation
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
@@ -37,15 +38,21 @@ export default function Home() {
     setTimeout(() => setShowConfetti(false), 5000)
   }
 
-  // Floating bubbles (already in your code)
+  // Floating bubbles
   useEffect(() => {
     const generated = Array.from({ length: 20 }).map(() => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
-      color: ["bg-pink-300", "bg-purple-300", "bg-yellow-300", "bg-violet-300", "bg-rose-300"][Math.floor(Math.random() * 5)],
+      color: [
+        "bg-pink-300",
+        "bg-purple-300",
+        "bg-yellow-300",
+        "bg-violet-300",
+        "bg-rose-300",
+      ][Math.floor(Math.random() * 5)],
       size: 16 + Math.floor(Math.random() * 8),
       duration: 3 + Math.random() * 2,
-      delay: Math.random() * 5
+      delay: Math.random() * 5,
     }))
     setBubbles(generated)
   }, [])
@@ -59,13 +66,16 @@ export default function Home() {
     >
       {/* 🎊 Confetti */}
       {isBirthday && showConfetti && (
-        <Confetti width={typeof window !== "undefined" ? window.innerWidth : 300}
-                  height={typeof window !== "undefined" ? window.innerHeight : 300} />
+        <Confetti
+          width={typeof window !== "undefined" ? window.innerWidth : 300}
+          height={typeof window !== "undefined" ? window.innerHeight : 300}
+        />
       )}
 
-      {/* ❤️ Hearts */}
+      {/* ❤️ Floating hearts */}
       <FloatingHearts />
 
+      {/* Main card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -81,7 +91,11 @@ export default function Home() {
             {isBirthday ? (
               <BirthdayCelebration key="celebration" />
             ) : (
-              <Countdown key="countdown" targetDate={birthdayDate} onCountdownEnd={() => setShowForYouBtn(true)} />
+              <Countdown
+                key="countdown"
+                targetDate={birthdayDate}
+                onCountdownEnd={() => setShowForYouBtn(true)}
+              />
             )}
           </AnimatePresence>
         </motion.div>
@@ -110,10 +124,10 @@ export default function Home() {
         </motion.div>
       )}
 
-      {/* 🎶 Song */}
+      {/* 🎶 Birthday song */}
       <audio ref={audioRef} src="/birthday.mp3" preload="auto" loop />
 
-      {/* ✨ Floating decorative bubbles */}
+      {/* ✨ Floating bubbles */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         {bubbles.map((bubble, i) => (
           <motion.div
