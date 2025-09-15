@@ -26,7 +26,7 @@ export default function BirthdayCelebration() {
           <Sparkles className="w-8 h-8 text-yellow-500" />
           <Heart className="w-8 h-8 text-pink-500" />
         </div>
-        <h3 className="text-2xl sm:text-3xl font-bold text-center text-pink-600 mt-2">To My Cutiepie Darling</h3>
+        <h3 className="text-2xl sm:text-3xl font-bold text-center text-pink-600 mt-2">To My Cutiepie</h3>
       </motion.div>
 
       <motion.div
@@ -88,7 +88,7 @@ export default function BirthdayCelebration() {
             >
               <div className="text-center">
                 <p className="text-purple-700 mb-2">
-                Just wanted to remind you—you're my favorite person. My days are better, smiles are wider, and life is sweeter because of you.
+                  💖 Happy Birthday, my dearest twin sis! 🎂 May your special day sparkle with joy, laughter, and all the magical moments you deserve. ✨ Sending you endless love and the warmest wishes! 🥳👯‍♀️
                 </p>
                 <p className="text-pink-600 font-medium">I hope your birthday is full of love, magic, and everything that makes you smile 💖</p>
                 <div className="flex justify-center">
@@ -118,8 +118,8 @@ export default function BirthdayCelebration() {
       >
         <div className="text-center">
           <p className="text-lg text-purple-700 mb-4">
-          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday Sai Teja
-😇🤩 #pulloda
+          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday Vasu..💕🥳
+😇🤩
           </p> {/* Change this name accordingly */}
           <div className="flex justify-center items-center gap-2">
             <p className="text-pink-600 font-medium">Let’s always stay like this... together, forever 🫶 <br /> Your one and only,
