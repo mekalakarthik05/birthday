@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Countdown from "@/components/countdown"
 import BirthdayCelebration from "@/components/birthday-celebration"
-import Confetti from "react-confetti"   // ✅ react-confetti package
+import Confetti from "react-confetti"
 import FloatingHearts from "@/components/floating-hearts"
 import Loader from "@/components/Loader"
 import { MoveRight, PartyPopper } from "lucide-react"
@@ -14,26 +14,31 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [showForYouBtn, setShowForYouBtn] = useState(false)
   const [showConfetti, setShowConfetti] = useState(true)
-  const [bubbles, setBubbles] = useState([])   // ✅ JS-safe state
-  const birthdayDate = new Date("2025-09-15T20:05:00+05:30") // 🎂 Change this date
-  const audioRef = useRef(null) // ✅ fixed
+  const [bubbles, setBubbles] = useState([]) // ✅ plain JS array
+  const audioRef = useRef(null) // ✅ no TS types
 
-  // Loading animation
+  const birthdayDate = new Date("2025-09-15T20:05:00+05:30")
+
+  // Fake loader
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false)
     }, 1500)
+    return () => clearTimeout(timer)
   }, [])
 
   const startCelebration = () => {
     setShowForYouBtn(false)
     setIsBirthday(true)
+
+    // Play audio
     if (audioRef.current) {
       audioRef.current.volume = 0.8
-      audioRef.current.play().catch((e) => {
+      audioRef.current.play().catch((e) =>
         console.log("Autoplay prevented:", e)
-      })
+      )
     }
+
     // stop confetti after 5s
     setTimeout(() => setShowConfetti(false), 5000)
   }
@@ -62,7 +67,7 @@ export default function Home() {
   return (
     <main
       className="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: "url('/birthday-bg.jpg')" }} // ✅ background image
+      style={{ backgroundImage: "url('/birthday-bg.jpg')" }} // ✅ must be in /public
     >
       {/* 🎊 Confetti */}
       {isBirthday && showConfetti && (
@@ -75,7 +80,7 @@ export default function Home() {
       {/* ❤️ Floating hearts */}
       <FloatingHearts />
 
-      {/* Main card */}
+      {/* 🎂 Main card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
