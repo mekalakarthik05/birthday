@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Countdown from "@/components/countdown"
 import BirthdayCelebration from "@/components/birthday-celebration"
-import Confetti from "@/components/confetti"
+import Confetti from "react-confetti"   // ✅ use react-confetti package
 import FloatingHearts from "@/components/floating-hearts"
 import Loader from "@/components/Loader"
 import { MoveRight, PartyPopper } from "lucide-react"
@@ -12,37 +12,38 @@ import { MoveRight, PartyPopper } from "lucide-react"
 export default function Home() {
   const [isBirthday, setIsBirthday] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [bubbles, setBubbles] = useState([])
+  const [bubbles, setBubbles] = useState<any[]>([])
   const [showForYouBtn, setShowForYouBtn] = useState(false)
-  const birthdayDate = new Date("2025-08-27T00:00:00+05:30") // Change this date accordingly
-  const audioRef = useRef(null)
+  const [showConfetti, setShowConfetti] = useState(true)
+  const birthdayDate = new Date("2025-10-05T00:00:00+05:30")// Change this date accordingly
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-  // For testing
-  // const birthdayDate = new Date("2025-04-23T22:03:00+05:30")
-
+  // Loading state
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
-    }, 1500);
+    }, 1500)
   }, [])
 
   const startCelebration = () => {
     setShowForYouBtn(false)
     setIsBirthday(true)
-    // Play the song
     if (audioRef.current) {
-      audioRef.current.volume = 0.8;
+      audioRef.current.volume = 0.8
       audioRef.current.play().catch((e) => {
-        console.log("Autoplay prevented, user interaction needed", e)
+        console.log("Autoplay prevented:", e)
       })
     }
+    // stop confetti after 5s
+    setTimeout(() => setShowConfetti(false), 5000)
   }
 
+  // Floating bubbles (already in your code)
   useEffect(() => {
     const generated = Array.from({ length: 20 }).map(() => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
-      color: ["bg-pink-300", "bg-purple-300", "bg-yellow-300", "bg-violet-300", "bg-rose-300"][Math.floor(Math.random() * 3)],
+      color: ["bg-pink-300", "bg-purple-300", "bg-yellow-300", "bg-violet-300", "bg-rose-300"][Math.floor(Math.random() * 5)],
       size: 16 + Math.floor(Math.random() * 8),
       duration: 3 + Math.random() * 2,
       delay: Math.random() * 5
@@ -50,15 +51,20 @@ export default function Home() {
     setBubbles(generated)
   }, [])
 
-  if (isLoading) {
-    return (
-      <Loader />
-    )
-  }
+  if (isLoading) return <Loader />
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-rose-100 to-purple-100 flex flex-col items-center justify-center p-4 overflow-hidden">
-      {isBirthday && <Confetti />}
+    <main
+      className="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: "url('/birthday-bg.jpg')" }} // ✅ background image
+    >
+      {/* 🎊 Confetti */}
+      {isBirthday && showConfetti && (
+        <Confetti width={typeof window !== "undefined" ? window.innerWidth : 300}
+                  height={typeof window !== "undefined" ? window.innerHeight : 300} />
+      )}
+
+      {/* ❤️ Hearts */}
       <FloatingHearts />
 
       <motion.div
@@ -67,12 +73,14 @@ export default function Home() {
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-3xl mx-auto"
       >
-        <motion.div className="bg-white bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-xl shadow-rose-100 p-8 border-2 border-rose-200"
+        <motion.div
+          className="bg-white bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-xl shadow-rose-100 p-8 border-2 border-rose-200"
           initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}>
+          animate={{ scale: 1 }}
+        >
           <AnimatePresence mode="wait">
             {isBirthday ? (
-              <BirthdayCelebration key="celebration" /> 
+              <BirthdayCelebration key="celebration" />
             ) : (
               <Countdown key="countdown" targetDate={birthdayDate} onCountdownEnd={() => setShowForYouBtn(true)} />
             )}
@@ -80,36 +88,33 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {showForYouBtn && <motion.div
-        key="start-button"
-        className="flex flex-col items-center justify-center mt-8"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0 }}
-      >
-        <motion.button
-          onClick={startCelebration}
-          className="bg-gradient-to-r z-10 from-pink-500 to-purple-500 shadow-lg hover:shadow-xl transition-all rounded-full font-medium text-white py-4 px-8 cursor-pointer border-2 border-white flex items-center gap-3"
-          whileTap={{ scale: 0.95 }}
-          animate={{
-            y: [0, -5, 0],
-            scale: [1, 1.03, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
-          }}
+      {/* 🎁 Button */}
+      {showForYouBtn && (
+        <motion.div
+          key="start-button"
+          className="flex flex-col items-center justify-center mt-8"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
         >
-          <PartyPopper className="w-6 h-6" />
-          <span className="text-xl">For you</span>
-          <MoveRight className="w-5 stroke-3 h-6" />
-        </motion.button>
-      </motion.div>}
+          <motion.button
+            onClick={startCelebration}
+            className="bg-gradient-to-r z-10 from-pink-500 to-purple-500 shadow-lg hover:shadow-xl transition-all rounded-full font-medium text-white py-4 px-8 cursor-pointer border-2 border-white flex items-center gap-3"
+            whileTap={{ scale: 0.95 }}
+            animate={{ y: [0, -5, 0], scale: [1, 1.03, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <PartyPopper className="w-6 h-6" />
+            <span className="text-xl">For you</span>
+            <MoveRight className="w-5 stroke-3 h-6" />
+          </motion.button>
+        </motion.div>
+      )}
 
-      {/* You can change the background song if you want */}
+      {/* 🎶 Song */}
       <audio ref={audioRef} src="/birthday.mp3" preload="auto" loop />
 
-      {/* Decorative elements */}
+      {/* ✨ Floating decorative bubbles */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         {bubbles.map((bubble, i) => (
           <motion.div
