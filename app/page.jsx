@@ -12,7 +12,6 @@ import { MoveRight, PartyPopper } from "lucide-react"
 export default function Home() {
   const [isBirthday, setIsBirthday] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [bubbles, setBubbles] = useState<any[]>([])
   const [showForYouBtn, setShowForYouBtn] = useState(false)
   const [showConfetti, setShowConfetti] = useState(true)
   const birthdayDate = new Date("2025-09-15T20:05:00+05:30")// Change this date accordingly
