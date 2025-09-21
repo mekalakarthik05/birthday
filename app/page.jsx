@@ -13,12 +13,7 @@ export default function Home() {
   const [isBirthday, setIsBirthday] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [showForYouBtn, setShowForYouBtn] = useState(false)
-<<<<<<< HEAD
-  const [showConfetti, setShowConfetti] = useState(true)
-  const [bubbles, setBubbles] = useState([]) // ✅ plain JS array
-  const audioRef = useRef(null) // ✅ no TS types
-=======
-  const birthdayDate = new Date("2025-08-26T00:00:00+05:30") // Change this date accordingly
+  const birthdayDate = new Date("2025-08-27T00:00:00+05:30") // Change this date accordingly
   const audioRef = useRef(null)
 >>>>>>> parent of 0510411 (Update page.jsx)
 
