@@ -89,7 +89,8 @@ export default function BirthdayCelebration() {
               <div className="text-center">
                 <p className="text-fuchsia-500 text-sm mb-2">
                   💖 Happy Birthday Akkaaww 🥰! 🎂💖 You may not share my blood, but you share my soul — and that bond is something words could never capture. 🌸💞💫On your special day, I want you to know that you’re not just a part of my story, but one of its most beautiful and cherished chapters. 📖🌷💖🎉May your heart overflow with love 💕, your days shine with light ✨🌞, and your life be blessed with every dream your heart holds 🌈🎂💐💫
-                <p className="text-cyan-500 font-medium">I hope your birthday is full of love, magic, and everything that makes you smile 💖</p>
+                </p>
+                  <p className="text-cyan-500 font-medium">I hope your birthday is full of love, magic, and everything that makes you smile 💖</p>
                 <div className="flex justify-center">
                   <motion.div
                     animate={{
