@@ -87,10 +87,9 @@ export default function BirthdayCelebration() {
               transition={{ duration: 0.5 }}
             >
               <div className="text-center">
-                <p className="text-purple-700 mb-2">
-                  💖 Happy Birthday, my dearest twin sis! 🎂 May your special day sparkle with joy, laughter, and all the magical moments you deserve. ✨ Sending you endless love and the warmest wishes! 🥳👯‍♀️
-                </p>
-                <p className="text-pink-600 font-medium">I hope your birthday is full of love, magic, and everything that makes you smile 💖</p>
+                <p className="text-fuchsia-500 text-sm mb-2">
+                  💖 Happy Birthday Akkaaww 🥰! 🎂💖 You may not share my blood, but you share my soul — and that bond is something words could never capture. 🌸💞💫On your special day, I want you to know that you’re not just a part of my story, but one of its most beautiful and cherished chapters. 📖🌷💖🎉May your heart overflow with love 💕, your days shine with light ✨🌞, and your life be blessed with every dream your heart holds 🌈🎂💐💫
+                <p className="text-cyan-500 font-medium">I hope your birthday is full of love, magic, and everything that makes you smile 💖</p>
                 <div className="flex justify-center">
                   <motion.div
                     animate={{
@@ -118,7 +117,7 @@ export default function BirthdayCelebration() {
       >
         <div className="text-center">
           <p className="text-lg text-purple-700 mb-4">
-          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday Vasu..💕🥳
+          May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that💕.<br />Once Again Happy Birthday my sweetest sister Renukaa..💕🥳
 😇🤩
           </p> {/* Change this name accordingly */}
           <div className="flex justify-center items-center gap-2">
